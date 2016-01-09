@@ -1,5 +1,7 @@
 package ii_collections
 
+import java.util.function.Predicate
+
 fun example8() {
     val numbers = listOf(1, 3, -4, 2, -11)
 
@@ -12,5 +14,10 @@ fun example8() {
 
 fun Shop.getCustomersWithMoreUndeliveredOrdersThanDelivered(): Set<Customer> {
     // Return customers who have more undelivered orders than delivered
-    todoCollectionTask()
+
+    return customers.filter {
+        val (delivered, undelivered) = it.orders.partition { it.isDelivered }
+        undelivered.size > delivered.size
+    }.toSet()
+
 }
